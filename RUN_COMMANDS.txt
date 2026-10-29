@@ -1,0 +1,19 @@
+# Run Backend (FastAPI)
+cd /home/alain/programing/newpro/backend
+source /home/alain/programing/project/.venv/bin/activate  # or your venv
+export PYTHONPATH=/home/alain/programing/newpro/backend:/home/alain/programing/newpro/collector:/home/alain/programing/newpro
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+
+# Run Collector (packet capture)
+cd /home/alain/programing/newpro/collector
+source /home/alain/programing/project/.venv/bin/activate
+export PYTHONPATH=/home/alain/programing/newpro/collector:/home/alain/programing/newpro/backend:/home/alain/programing/newpro
+python -m collector.main  # or run your collector script as before
+
+# Run Frontend (dev)
+cd /home/alain/programing/newpro/frontend
+npm run dev
+
+# Build Frontend (prod)
+cd /home/alain/programing/newpro/frontend
+npm run build

@@ -1,0 +1,73 @@
+[
+  {
+    "timestamp": "2026-10-28T18:50:00Z",
+    "src_ip": "192.168.1.105",
+    "dst_ip": "192.168.1.1",
+    "src_port": 554,
+    "dst_port": 49152,
+    "protocol": "TCP",
+    "packet_count": 482,
+    "byte_count": 524288,
+    "duration_seconds": 32.4,
+    "tcp_flags_summary": "SYN,ACK,PSH",
+    "interface": "eth0",
+    "capture_session_id": "seed-session-001"
+  },
+  {
+    "timestamp": "2026-10-28T18:51:10Z",
+    "src_ip": "192.168.1.120",
+    "dst_ip": "8.8.8.8",
+    "src_port": 52140,
+    "dst_port": 53,
+    "protocol": "UDP",
+    "packet_count": 4,
+    "byte_count": 320,
+    "duration_seconds": 0.12,
+    "tcp_flags_summary": null,
+    "interface": "eth0",
+    "capture_session_id": "seed-session-001"
+  },
+  {
+    "timestamp": "2026-10-28T18:52:05Z",
+    "src_ip": "192.168.1.142",
+    "dst_ip": "54.210.12.34",
+    "src_port": 41200,
+    "dst_port": 8883,
+    "protocol": "TCP",
+    "packet_count": 18,
+    "byte_count": 2450,
+    "duration_seconds": 12.8,
+    "tcp_flags_summary": "SYN,ACK,PSH,FIN",
+    "interface": "eth0",
+    "capture_session_id": "seed-session-001"
+  },
+  {
+    "timestamp": "2026-10-28T18:53:20Z",
+    "src_ip": "192.168.1.200",
+    "dst_ip": "142.250.190.46",
+    "src_port": 58210,
+    "dst_port": 443,
+    "protocol": "TCP",
+    "packet_count": 124,
+    "byte_count": 89400,
+    "duration_seconds": 4.6,
+    "tcp_flags_summary": "SYN,ACK,PSH,FIN",
+    "interface": "eth0",
+    "capture_session_id": "seed-session-001"
+  },
+  {
+    "timestamp": "2026-10-28T18:54:00Z",
+    "src_ip": "192.168.1.1",
+    "dst_ip": "192.168.1.255",
+    "src_port": null,
+    "dst_port": null,
+    "protocol": "ARP",
+    "packet_count": 12,
+    "byte_count": 720,
+    "duration_seconds": 1.5,
+    "tcp_flags_summary": null,
+    "interface": "eth0",
+    "capture_session_id": "seed-session-001"
+  }
+]
+

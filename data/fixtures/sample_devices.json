@@ -1,0 +1,53 @@
+[
+  {
+    "device_key": "192.168.1.1_AA:BB:CC:DD:EE:01",
+    "ip_address": "192.168.1.1",
+    "mac_address": "AA:BB:CC:DD:EE:01",
+    "hostname": "gateway.home.local",
+    "first_seen": "2026-10-28T10:00:00Z",
+    "last_seen": "2026-10-28T18:55:00Z",
+    "source": "arp_discovery",
+    "metadata": { "device_type": "router_gateway" }
+  },
+  {
+    "device_key": "192.168.1.105_AA:BB:CC:DD:EE:05",
+    "ip_address": "192.168.1.105",
+    "mac_address": "AA:BB:CC:DD:EE:05",
+    "hostname": "smart-cam-frontdoor",
+    "first_seen": "2026-10-28T10:05:00Z",
+    "last_seen": "2026-10-28T18:54:12Z",
+    "source": "passive_capture",
+    "metadata": { "device_type": "security_camera" }
+  },
+  {
+    "device_key": "192.168.1.120_AA:BB:CC:DD:EE:20",
+    "ip_address": "192.168.1.120",
+    "mac_address": "AA:BB:CC:DD:EE:20",
+    "hostname": "thermostat-hallway",
+    "first_seen": "2026-10-28T11:00:00Z",
+    "last_seen": "2026-10-28T18:50:30Z",
+    "source": "passive_capture",
+    "metadata": { "device_type": "iot_thermostat" }
+  },
+  {
+    "device_key": "192.168.1.142_AA:BB:CC:DD:EE:42",
+    "ip_address": "192.168.1.142",
+    "mac_address": "AA:BB:CC:DD:EE:42",
+    "hostname": "smart-plug-livingroom",
+    "first_seen": "2026-10-28T12:15:00Z",
+    "last_seen": "2026-10-28T18:48:10Z",
+    "source": "passive_capture",
+    "metadata": { "device_type": "smart_plug" }
+  },
+  {
+    "device_key": "192.168.1.200_AA:BB:CC:DD:EE:99",
+    "ip_address": "192.168.1.200",
+    "mac_address": "AA:BB:CC:DD:EE:99",
+    "hostname": "laptop-workstation",
+    "first_seen": "2026-10-28T14:00:00Z",
+    "last_seen": "2026-10-28T18:56:00Z",
+    "source": "arp_discovery",
+    "metadata": { "device_type": "workstation" }
+  }
+]
+
