@@ -54,19 +54,19 @@ export const CaptureControls: React.FC<CaptureControlsProps> = ({
   };
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+    <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm dark:bg-slate-900 dark:border-slate-800 dark:shadow-lg transition-colors">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         {/* Interface selection */}
         <div className="flex-1 max-w-md">
-          <label className="block text-xs font-medium text-slate-400 mb-1.5 flex items-center gap-1.5">
-            <Network className="w-3.5 h-3.5 text-blue-400" />
+          <label className="block text-xs font-medium text-slate-600 mb-1.5 flex items-center gap-1.5 dark:text-slate-400">
+            <Network className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
             <span>Target Network Interface</span>
           </label>
           <select
             value={selectedIface}
             onChange={(e) => setSelectedIface(e.target.value)}
             disabled={isRunning || disabled || isActing}
-            className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-blue-500/60 disabled:opacity-50 transition"
+            className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 disabled:opacity-50 transition dark:bg-slate-950 dark:border-slate-800 dark:text-slate-200 dark:focus:border-blue-500/60"
           >
             {interfaces.length === 0 ? (
               <option value="">No network interfaces detected</option>

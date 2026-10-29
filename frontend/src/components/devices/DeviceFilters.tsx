@@ -19,20 +19,20 @@ export const DeviceFilters: React.FC<DeviceFiltersProps> = ({
   return (
     <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mb-4">
       <div className="relative flex-1 max-w-md">
-        <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+        <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
         <input
           type="text"
           placeholder="Filter by IP, MAC, or hostname..."
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-9 pr-4 py-2 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500/60 focus:ring-1 focus:ring-blue-500/60 transition"
+          className="w-full bg-white border border-slate-200 rounded-xl pl-9 pr-4 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition dark:bg-slate-900 dark:border-slate-800 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-blue-500/60 dark:focus:ring-blue-500/60"
         />
       </div>
 
       <div className="flex items-center space-x-2">
         <button
           onClick={onRefresh}
-          className="p-2 rounded-xl border border-slate-800 bg-slate-900 hover:bg-slate-800 text-slate-300 transition"
+          className="p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition dark:border-slate-800 dark:bg-slate-900 dark:hover:bg-slate-800 dark:text-slate-300"
           title="Refresh list"
         >
           <RefreshCw className="w-4 h-4" />

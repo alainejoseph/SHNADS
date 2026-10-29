@@ -42,7 +42,7 @@ export const SessionHistory: React.FC<SessionHistoryProps> = ({ sessions = [], l
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="border-b border-slate-800 text-slate-400 font-medium">
+              <tr className="border-b border-slate-200 text-slate-600 font-medium dark:border-slate-800 dark:text-slate-400">
                 <th className="py-2.5 px-3">Session ID</th>
                 <th className="py-2.5 px-3">Interface</th>
                 <th className="py-2.5 px-3">Status</th>
@@ -52,26 +52,26 @@ export const SessionHistory: React.FC<SessionHistoryProps> = ({ sessions = [], l
                 <th className="py-2.5 px-3">Stopped At</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 font-mono">
+            <tbody className="divide-y divide-slate-200 dark:divide-slate-800/60 font-mono">
               {sessionList.map((s) => (
-                <tr key={s.session_id} className="hover:bg-slate-800/30 transition-colors">
-                  <td className="py-2.5 px-3 text-slate-400 text-[11px]">
+                <tr key={s.session_id} className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                  <td className="py-2.5 px-3 text-slate-600 dark:text-slate-400 text-[11px]">
                     {s.session_id.substring(0, 8)}...
                   </td>
-                  <td className="py-2.5 px-3 text-slate-200 font-semibold">{s.interface}</td>
+                  <td className="py-2.5 px-3 text-slate-900 dark:text-slate-200 font-semibold">{s.interface}</td>
                   <td className="py-2.5 px-3 font-sans">
                     <StatusBadge status={s.status} />
                   </td>
-                  <td className="py-2.5 px-3 text-right text-slate-300 font-bold">
+                  <td className="py-2.5 px-3 text-right text-slate-800 dark:text-slate-300 font-bold">
                     {s.packets_seen.toLocaleString()}
                   </td>
-                  <td className="py-2.5 px-3 text-right text-slate-300 font-bold">
+                  <td className="py-2.5 px-3 text-right text-slate-800 dark:text-slate-300 font-bold">
                     {s.flows_created.toLocaleString()}
                   </td>
-                  <td className="py-2.5 px-3 text-slate-400 font-sans text-[11px]">
+                  <td className="py-2.5 px-3 text-slate-600 dark:text-slate-400 font-sans text-[11px]">
                     {formatDate(s.started_at)}
                   </td>
-                  <td className="py-2.5 px-3 text-slate-400 font-sans text-[11px]">
+                  <td className="py-2.5 px-3 text-slate-600 dark:text-slate-400 font-sans text-[11px]">
                     {formatDate(s.stopped_at)}
                   </td>
                 </tr>

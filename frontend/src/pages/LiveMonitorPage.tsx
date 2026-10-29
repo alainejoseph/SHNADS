@@ -94,7 +94,7 @@ export const LiveMonitorPage: React.FC = () => {
     <div className="space-y-6">
       {/* Title */}
       <div className="border-b border-slate-800/80 pb-4">
-        <h2 className="text-xl font-bold text-slate-100 tracking-tight">Live Network Monitor</h2>
+        <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 tracking-tight">Live Network Monitor</h2>
       </div>
 
       {(statusError || actionError) && (

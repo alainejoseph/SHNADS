@@ -57,11 +57,11 @@ export const ProtocolChart: React.FC<ProtocolChartProps> = ({ distribution }) =>
                 <div className="flex justify-between items-center text-xs">
                   <div className="flex items-center space-x-2">
                     <StatusBadge status={proto} type="protocol" />
-                    <span className="text-slate-400 font-mono">({Number(count).toLocaleString()} flows)</span>
+                    <span className="text-slate-700 dark:text-slate-400 font-mono">({Number(count).toLocaleString()} flows)</span>
                   </div>
-                  <span className="font-semibold text-slate-200">{pct}%</span>
+                  <span className="font-semibold text-slate-900 dark:text-slate-200">{pct}%</span>
                 </div>
-                <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
+                <div className="h-2 w-full bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
                   <div
                     className={`h-full rounded-full transition-all duration-500 ${getBarColor(proto)}`}
                     style={{ width: `${pct}%` }}

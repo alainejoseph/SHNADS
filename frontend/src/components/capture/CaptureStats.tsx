@@ -45,7 +45,7 @@ export const CaptureStats: React.FC<CaptureStatsProps> = ({ session, isRunning }
       label: 'Session State',
       value: session?.status?.toUpperCase() || (isRunning ? 'RUNNING' : 'IDLE'),
       icon: ShieldCheck,
-      color: isRunning ? 'text-emerald-400' : 'text-slate-400',
+      color: isRunning ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-500',
     },
   ];
 
@@ -56,14 +56,14 @@ export const CaptureStats: React.FC<CaptureStatsProps> = ({ session, isRunning }
         return (
           <div
             key={i}
-            className="bg-slate-900 border border-slate-800 rounded-xl p-4 flex items-center space-x-3.5"
+            className="bg-white border border-slate-200 rounded-xl p-4 flex items-center space-x-3.5 dark:bg-slate-900 dark:border-slate-800"
           >
             <div className={`p-2.5 rounded-lg bg-slate-800/80 ${item.color}`}>
               <Icon className="w-4 h-4" />
             </div>
             <div>
-              <p className="text-[11px] text-slate-400 font-medium">{item.label}</p>
-              <p className="text-base font-bold text-slate-100 font-mono mt-0.5">{item.value}</p>
+              <p className="text-[11px] text-slate-600 dark:text-slate-400 font-medium">{item.label}</p>
+              <p className="text-base font-bold text-slate-900 dark:text-slate-100 font-mono mt-0.5">{item.value}</p>
             </div>
           </div>
         );

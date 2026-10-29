@@ -5,7 +5,6 @@ import { Pagination } from '../components/ui/Pagination';
 import { ErrorMessage } from '../components/ui/ErrorMessage';
 import { getDevices, discoverDevices } from '../services/api';
 import type { Device } from '../types';
-import { Info } from 'lucide-react';
 
 export const DevicesPage: React.FC = () => {
   const [devices, setDevices] = useState<Device[]>([]);
@@ -55,7 +54,7 @@ export const DevicesPage: React.FC = () => {
     <div className="space-y-6">
       {/* Title */}
       <div className="border-b border-slate-800/80 pb-4">
-        <h2 className="text-xl font-bold text-slate-100 tracking-tight">Observed Devices Inventory</h2>
+        <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 tracking-tight">Observed Devices Inventory</h2>
       </div>
 
       {/* Scope Disclaimer banner

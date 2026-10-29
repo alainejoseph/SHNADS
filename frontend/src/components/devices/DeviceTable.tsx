@@ -28,10 +28,10 @@ export const DeviceTable: React.FC<DeviceTableProps> = ({ devices = [], loading 
   }
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-slate-800 bg-slate-900">
+    <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
       <table className="w-full text-left border-collapse text-xs">
         <thead>
-          <tr className="border-b border-slate-800 text-slate-400 font-semibold bg-slate-950/40">
+          <tr className="border-b border-slate-200 text-slate-600 font-semibold bg-slate-50 dark:border-slate-800 dark:text-slate-400 dark:bg-slate-950/40">
             <th className="py-3 px-4">IP Address</th>
             <th className="py-3 px-4">MAC Address</th>
             <th className="py-3 px-4">Hostname</th>
@@ -40,7 +40,7 @@ export const DeviceTable: React.FC<DeviceTableProps> = ({ devices = [], loading 
             <th className="py-3 px-4">Last Seen</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-slate-800/60">
+        <tbody className="divide-y divide-slate-200 dark:divide-slate-800/60">
           {deviceList.map((device) => (
             <DeviceRow key={device.device_key} device={device} />
           ))}

@@ -28,10 +28,10 @@ export const FlowTable: React.FC<FlowTableProps> = ({ flows = [], loading }) => 
   }
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-slate-800 bg-slate-900">
+    <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
       <table className="w-full text-left border-collapse text-xs">
         <thead>
-          <tr className="border-b border-slate-800 text-slate-400 font-semibold bg-slate-950/40">
+          <tr className="border-b border-slate-200 text-slate-600 font-semibold bg-slate-50 dark:border-slate-800 dark:text-slate-400 dark:bg-slate-950/40">
             <th className="py-3 px-3">Time</th>
             <th className="py-3 px-3">Protocol</th>
             <th className="py-3 px-3">Source Endpoint</th>
@@ -42,7 +42,7 @@ export const FlowTable: React.FC<FlowTableProps> = ({ flows = [], loading }) => 
             <th className="py-3 px-3">TCP Flags</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-slate-800/60">
+        <tbody className="divide-y divide-slate-200 dark:divide-slate-800/60">
           {flowList.map((flow, index) => (
             <FlowRow key={flow._id || flow.flow_key || index} flow={flow} />
           ))}

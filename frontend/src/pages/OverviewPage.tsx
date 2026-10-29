@@ -19,7 +19,7 @@ export const OverviewPage: React.FC = () => {
       {/* Page Title */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800/80 pb-4">
         <div>
-          <h2 className="text-xl font-bold text-slate-100 tracking-tight">System Overview</h2>
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 tracking-tight">System Overview</h2>
         </div>
       </div>
 

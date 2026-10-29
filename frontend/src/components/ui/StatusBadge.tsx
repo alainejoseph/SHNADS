@@ -8,30 +8,30 @@ interface StatusBadgeProps {
 export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, type = 'status' }) => {
   const norm = (status || '').toLowerCase();
 
-  let colorClasses = 'bg-slate-800 text-slate-300 border-slate-700';
+  let colorClasses = 'bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700';
 
   if (type === 'protocol') {
     switch (norm) {
       case 'tcp':
-        colorClasses = 'bg-blue-950/70 text-blue-400 border-blue-800/60';
+        colorClasses = 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/70 dark:text-blue-400 dark:border-blue-800/60';
         break;
       case 'udp':
-        colorClasses = 'bg-emerald-950/70 text-emerald-400 border-emerald-800/60';
+        colorClasses = 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/70 dark:text-emerald-400 dark:border-emerald-800/60';
         break;
       case 'icmp':
-        colorClasses = 'bg-amber-950/70 text-amber-400 border-amber-800/60';
+        colorClasses = 'bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-950/70 dark:text-amber-400 dark:border-amber-800/60';
         break;
       case 'arp':
-        colorClasses = 'bg-purple-950/70 text-purple-400 border-purple-800/60';
+        colorClasses = 'bg-purple-50 text-purple-700 border-purple-200 dark:bg-purple-950/70 dark:text-purple-400 dark:border-purple-800/60';
         break;
       case 'http':
-        colorClasses = 'bg-cyan-950/70 text-cyan-400 border-cyan-800/60';
+        colorClasses = 'bg-cyan-50 text-cyan-700 border-cyan-200 dark:bg-cyan-950/70 dark:text-cyan-400 dark:border-cyan-800/60';
         break;
       case 'https':
-        colorClasses = 'bg-sky-950/70 text-sky-400 border-sky-800/60';
+        colorClasses = 'bg-sky-50 text-sky-700 border-sky-200 dark:bg-sky-950/70 dark:text-sky-400 dark:border-sky-800/60';
         break;
       default:
-        colorClasses = 'bg-slate-800 text-slate-400 border-slate-700';
+        colorClasses = 'bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-700';
     }
   } else {
     switch (norm) {
@@ -39,22 +39,22 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, type = 'status
       case 'active':
       case 'healthy':
       case 'connected':
-        colorClasses = 'bg-emerald-950/80 text-emerald-300 border-emerald-700/60';
+        colorClasses = 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/80 dark:text-emerald-300 dark:border-emerald-700/60';
         break;
       case 'starting':
       case 'stopping':
-        colorClasses = 'bg-amber-950/80 text-amber-300 border-amber-700/60';
+        colorClasses = 'bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-950/80 dark:text-amber-300 dark:border-amber-700/60';
         break;
       case 'stopped':
       case 'disconnected':
-        colorClasses = 'bg-slate-800/90 text-slate-400 border-slate-700';
+        colorClasses = 'bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800/90 dark:text-slate-400 dark:border-slate-700';
         break;
       case 'error':
       case 'unhealthy':
-        colorClasses = 'bg-rose-950/80 text-rose-300 border-rose-700/60';
+        colorClasses = 'bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/80 dark:text-rose-300 dark:border-rose-700/60';
         break;
       default:
-        colorClasses = 'bg-slate-800 text-slate-300 border-slate-700';
+        colorClasses = 'bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700';
     }
   }
 

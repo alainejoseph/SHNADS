@@ -36,7 +36,7 @@ export const StatsCards: React.FC<StatsCardsProps> = ({ summary }) => {
       icon: Radio,
       color: summary?.active_capture
         ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20'
-        : 'text-slate-400 bg-slate-800/40 border-slate-700/40',
+        : 'text-slate-600 bg-slate-100 border-slate-200 dark:text-slate-400 dark:bg-slate-800/40 dark:border-slate-700/40',
       isBadge: true,
       status: summary?.active_capture ? 'running' : 'stopped',
       description: summary?.current_session ? `Interface: ${summary.current_session.interface}` : 'Idle',
@@ -50,11 +50,11 @@ export const StatsCards: React.FC<StatsCardsProps> = ({ summary }) => {
         return (
           <div
             key={i}
-            className="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-sm flex flex-col justify-between"
+            className="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 rounded-xl p-5 shadow-sm flex flex-col justify-between transition-colors"
           >
             <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-medium text-slate-400">{c.label}</span>
-              <div className={`p-2 rounded-lg border ${c.color}`}>
+              <span className="text-xs font-medium text-slate-600 dark:text-slate-400">{c.label}</span>
+              <div className={`p-2 rounded-lg border ${c.color} dark:opacity-90`}>
                 <Icon className="w-4 h-4" />
               </div>
             </div>
@@ -64,7 +64,7 @@ export const StatsCards: React.FC<StatsCardsProps> = ({ summary }) => {
                   <StatusBadge status={c.status || 'stopped'} />
                 </div>
               ) : (
-                <div className="text-2xl font-bold text-slate-100 font-mono">
+                <div className="text-2xl font-bold text-slate-900 dark:text-slate-100 font-mono">
                   {typeof c.value === 'number' ? c.value.toLocaleString() : c.value}
                 </div>
               )}
