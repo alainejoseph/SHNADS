@@ -426,16 +426,21 @@ class CaptureService:
                 },
             )
 
-        # Upsert devices observed in the flushed flows
-        seen_ips: set[str] = set()
-        for fd in flow_dicts:
-            seen_ips.add(fd.get("src_ip", ""))
-            seen_ips.add(fd.get("dst_ip", ""))
-        for ip in seen_ips:
-            if ip:
-                await self._device_service.upsert_device(
-                    ip=ip, mac=None, source="passive_capture"
-                )
+        # Upsert devices observed in the flushed flows - only local/monitored network devices
+        from app.utils.network import get_local_networks, is_ip_in_monitored_network
+        try:
+            networks = get_local_networks(self._current_session.get("interface") if self._current_session else None)
+            seen_ips: set[str] = set()
+            for fd in flow_dicts:
+                seen_ips.add(fd.get("src_ip", ""))
+                seen_ips.add(fd.get("dst_ip", ""))
+            for ip in seen_ips:
+                if ip and is_ip_in_monitored_network(ip, networks):
+                    await self._device_service.upsert_device(
+                        ip=ip, mac=None, source="passive_capture"
+                    )
+        except Exception as exc:
+            logger.error("Error upserting devices from flows: %s", exc)
 
     async def _periodic_flush(self, session_id: str) -> None:
         """Background task that flushes completed flows every 10 seconds."""

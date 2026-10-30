@@ -84,3 +84,9 @@ export interface ApiError {
   error_code?: string;
 }
 
+export interface DiscoveryResponse {
+  status: string;
+  message: string;
+  devices_found?: number;
+}
+

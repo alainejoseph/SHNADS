@@ -25,6 +25,10 @@ class Settings(BaseSettings):
 
     # Discovery
     DISCOVERY_SUBNET: str = ""
+    ARP_TIMEOUT: float = 5
+    ARP_RETRIES: int = 2
+    ARP_INTER_RETRY_DELAY: float = 1
+    DISCOVERY_MAX_DURATION: float = 30
 
     @field_validator("CORS_ORIGINS", mode="before")
     @classmethod

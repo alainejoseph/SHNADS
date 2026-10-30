@@ -22,6 +22,7 @@ class DeviceService:
         mac: Optional[str],
         source: str,
         hostname: Optional[str] = None,
+        skip_validation: bool = False,
     ) -> Dict[str, Any]:
         """Insert a new device or update an existing one.
 
@@ -39,38 +40,69 @@ class DeviceService:
         Returns:
             The upserted device document as a dict.
         """
+        from app.utils.network import get_local_networks, is_ip_in_monitored_network, is_likely_external
+        import ipaddress
+
+        # Validate IP is in monitored network unless explicitly skipped (e.g., for manual entries)
+        if not skip_validation:
+            try:
+                ip_obj = ipaddress.ip_address(ip)
+                if ip_obj.is_loopback or ip_obj.is_unspecified or ip_obj.is_multicast:
+                    logger.warning("Skipping device creation for invalid/special IP: %s", ip)
+                    return {}
+                # For non-discovery sources, be stricter - only allow if in monitored network
+                if source in ("passive_capture",):
+                    networks = get_local_networks()
+                    if networks and not is_ip_in_monitored_network(ip, networks):
+                        logger.debug("Skipping device creation for external IP %s from %s", ip, source)
+                        return {}
+            except Exception:
+                pass
+
         device_key = f"{ip}_{mac}" if mac else ip
         now = datetime.utcnow()
+
+        # Try to preserve user-verified names by looking up existing doc
+        existing = await self._collection.find_one({"device_key": device_key})
+        user_verified_name = None
+        if existing and existing.get("user_verified"):
+            user_verified_name = existing.get("name")
 
         update: Dict[str, Any] = {
             "$set": {
                 "ip_address": ip,
                 "last_seen": now,
-                "source": source,
             },
             "$setOnInsert": {
                 "device_key": device_key,
                 "first_seen": now,
                 "metadata": {},
+                "source": source,
             },
         }
 
         if mac is not None:
             update["$set"]["mac_address"] = mac
-        if hostname is not None:
+        if hostname is not None and not (existing and existing.get("hostname")):
             update["$set"]["hostname"] = hostname
+        if user_verified_name:
+            update["$set"]["name"] = user_verified_name
 
-        result = await self._collection.update_one(
-            {"device_key": device_key},
-            update,
-            upsert=True,
-        )
+        try:
+            result = await self._collection.update_one(
+                {"device_key": device_key},
+                update,
+                upsert=True,
+            )
+        except Exception as exc:
+            logger.error("Error upserting device %s: %s", device_key, exc)
+            raise
 
         doc = await self._collection.find_one({"device_key": device_key})
         if doc:
             doc.pop("_id", None)
 
-        logger.info(
+        logger.debug(
             "Upserted device %s (matched=%s, modified=%s, upserted=%s)",
             device_key,
             result.matched_count,

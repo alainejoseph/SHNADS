@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import axios from 'axios';
 import { DeviceFilters } from '../components/devices/DeviceFilters';
 import { DeviceTable } from '../components/devices/DeviceTable';
 import { Pagination } from '../components/ui/Pagination';
@@ -11,9 +12,14 @@ export const DevicesPage: React.FC = () => {
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [discoveryNotification, setDiscoveryNotification] = useState<{
+    type: 'success' | 'info';
+    message: string;
+  } | null>(null);
   const [search, setSearch] = useState('');
   const [skip, setSkip] = useState(0);
   const [isDiscovering, setIsDiscovering] = useState(false);
+  const discoveryInFlight = useRef(false);
   const limit = 20;
 
   const fetchDevices = useCallback(async () => {
@@ -25,7 +31,13 @@ export const DevicesPage: React.FC = () => {
       setDevices(list);
       setTotal(data.total ?? list.length);
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Failed to load devices');
+      let message = 'Failed to load devices';
+      if (axios.isAxiosError(err)) {
+        message = err.response?.data?.detail || err.response?.data?.message || err.message;
+      } else if (err instanceof Error) {
+        message = err.message;
+      }
+      setError(message);
     } finally {
       setLoading(false);
     }
@@ -36,16 +48,28 @@ export const DevicesPage: React.FC = () => {
   }, [fetchDevices]);
 
   const handleDiscover = async () => {
+    if (discoveryInFlight.current) return;
+    discoveryInFlight.current = true;
     setIsDiscovering(true);
+    setError(null);
+    setDiscoveryNotification(null);
     try {
-      await discoverDevices();
-      // Wait a moment for ARP scan to complete then re-fetch
-      setTimeout(() => {
-        fetchDevices();
-        setIsDiscovering(false);
-      }, 3500);
+      const res = await discoverDevices();
+      setDiscoveryNotification({
+        type: 'success',
+        message: res.message || `Discovery scan complete. Found ${res.devices_found ?? 0} device(s).`,
+      });
+      await fetchDevices();
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Discovery scan failed');
+      let message = 'Discovery scan failed';
+      if (axios.isAxiosError(err)) {
+        message = err.response?.data?.detail || err.response?.data?.message || err.message;
+      } else if (err instanceof Error) {
+        message = err.message;
+      }
+      setError(message);
+    } finally {
+      discoveryInFlight.current = false;
       setIsDiscovering(false);
     }
   };
@@ -57,13 +81,17 @@ export const DevicesPage: React.FC = () => {
         <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 tracking-tight">Observed Devices Inventory</h2>
       </div>
 
-      {/* Scope Disclaimer banner
-      <div className="bg-blue-950/20 border border-blue-800/40 rounded-xl p-3.5 text-xs text-blue-300 flex items-start space-x-2.5">
-        <Info className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
-        <p className="leading-relaxed">
-          <strong>Observation Boundary:</strong> Passive capture only detects devices that have actively sent or received packets. MAC addresses are only observable for devices on the immediate broadcast domain (layer 2).
-        </p>
-      </div> */}
+      {discoveryNotification && (
+        <div className="bg-emerald-950/30 border border-emerald-800/60 rounded-xl p-3.5 text-xs text-emerald-300 flex items-center justify-between">
+          <span>{discoveryNotification.message}</span>
+          <button
+            onClick={() => setDiscoveryNotification(null)}
+            className="text-emerald-400 hover:text-emerald-200 text-xs ml-4 cursor-pointer"
+          >
+            Dismiss
+          </button>
+        </div>
+      )}
 
       {error && <ErrorMessage message={error} onRetry={fetchDevices} />}
 
@@ -80,7 +108,7 @@ export const DevicesPage: React.FC = () => {
       />
 
       {/* Devices Table */}
-      <DeviceTable devices={devices} loading={loading} />
+      <DeviceTable devices={devices} loading={loading || isDiscovering} />
 
       {/* Pagination */}
       <Pagination

@@ -7,6 +7,7 @@ import type {
   CaptureStatus,
   CaptureSession,
   PaginatedResponse,
+  DiscoveryResponse,
 } from '../types';
 
 const apiClient = axios.create({
@@ -36,8 +37,12 @@ export const getDevices = async (params?: {
   return res.data;
 };
 
-export const discoverDevices = async (iface?: string): Promise<{ status: string; message: string }> => {
-  const res = await apiClient.post('/api/devices/discover', iface ? { interface: iface } : {});
+export const discoverDevices = async (iface?: string): Promise<DiscoveryResponse> => {
+  const res = await apiClient.post<DiscoveryResponse>(
+    '/api/discovery/arp',
+    iface ? { interface: iface } : null,
+    { params: iface ? { interface: iface } : {}, timeout: 40000 }
+  );
   return res.data;
 };
 

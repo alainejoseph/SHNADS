@@ -7,7 +7,7 @@ from typing import AsyncGenerator
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.routes import capture, dashboard, devices, flows, health
+from app.api.routes import capture, dashboard, devices, discovery, flows, health
 from app.config import get_settings
 from app.db.indexes import create_indexes
 from app.db.mongodb import get_database, mongodb_manager
@@ -51,35 +51,41 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
         logger.warning("Failed to disconnect from MongoDB: %s", exc)
 
 
-app = FastAPI(
-    title="Smart Home Network Anomaly Detection",
-    version="0.1.0",
-    description="Smart Home IoT Network Anomaly Detection - API",
-    lifespan=lifespan,
-)
+def create_app() -> FastAPI:
+    app = FastAPI(
+        title="Smart Home Network Anomaly Detection",
+        version="0.1.0",
+        description="Smart Home IoT Network Anomaly Detection - API",
+        lifespan=lifespan,
+    )
 
-# CORS configuration
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=settings.CORS_ORIGINS,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+    # CORS configuration
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=settings.CORS_ORIGINS,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
-app.include_router(health.router)
-app.include_router(dashboard.router)
-app.include_router(devices.router)
-app.include_router(flows.router)
-app.include_router(capture.router)
+    app.include_router(health.router)
+    app.include_router(dashboard.router)
+    app.include_router(devices.router)
+    app.include_router(discovery.router)
+    app.include_router(flows.router)
+    app.include_router(capture.router)
+
+    @app.get("/")
+    async def root() -> dict:
+        """Root endpoint with API information."""
+        return {
+            "name": "Smart Home Network Anomaly Detection API",
+            "version": "0.1.0",
+            "status": "running",
+            "docs": "/docs",
+        }
+
+    return app
 
 
-@app.get("/")
-async def root() -> dict:
-    """Root endpoint with API information."""
-    return {
-        "name": "Smart Home Network Anomaly Detection",
-        "version": "0.1.0",
-        "status": "running",
-        "docs": "/docs",
-    }
+app = create_app()
